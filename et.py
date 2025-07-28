@@ -26,8 +26,8 @@ def save_config(data):
         json.dump(data, f, indent=4)
 
 class OperationsModal(discord.ui.Modal, title="تقرير مركز العمليات"):
-    time = discord.ui.TextInput(label="الوقت", placeholder="مثال: 9:30 مساءً")
-    fort = discord.ui.TextInput(label="الحصن", placeholder="اسم الموقع")
+    time = discord.ui.TextInput(label="الوقت", placeholder="مثال من الساعه 11:00 الى 12:00")
+    fort = discord.ui.TextInput(label="الحصن", placeholder="الكود")
     units = discord.ui.TextInput(label="الوحدات", style=discord.TextStyle.paragraph, placeholder="اكتب الوحدات تحت بعض")
     reports_count = discord.ui.TextInput(label="عدد البلاغات", placeholder="مثال: 3 بلاغات")
 
@@ -56,7 +56,7 @@ class EMSModalShort(discord.ui.Modal, title="تقرير الإسعاف - مخت�
     national_id = discord.ui.TextInput(label="الهوية الوطنية")
     location = discord.ui.TextInput(label="الموقع")
     case_type = discord.ui.TextInput(label="نوع الحالة")
-    description = discord.ui.TextInput(label="وصف الحالة", style=discord.TextStyle.paragraph)
+    description = discord.ui.TextInput(label="الأطباء المشاركين + وصف الحالة", style=discord.TextStyle.paragraph)
 
     async def on_submit(self, interaction: discord.Interaction):
         config = load_config()
@@ -72,7 +72,7 @@ class EMSModalShort(discord.ui.Modal, title="تقرير الإسعاف - مخت�
         embed.add_field(name="🆔 الهوية الوطنية", value=self.national_id.value, inline=False)
         embed.add_field(name="📍 الموقع", value=self.location.value, inline=False)
         embed.add_field(name="🩺 نوع الحالة", value=self.case_type.value, inline=False)
-        embed.add_field(name="📝 وصف الحالة", value=self.description.value, inline=False)
+        embed.add_field(name="📝 , الاطباء المشاركين وصف الحالة", value=self.description.value, inline=False)
         embed.set_footer(text=f"تم الإرسال بواسطة: {interaction.user.display_name}")
 
         channel = bot.get_channel(int(room_id))
