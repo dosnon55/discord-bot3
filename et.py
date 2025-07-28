@@ -1,8 +1,11 @@
+# et.py (أو اسم ملف البوت الأساسي)
+import os
+from keep_alive import keep_alive  # استيراد keep_alive
+
 import discord
 from discord.ext import commands
 from discord import app_commands
 import json
-import os
 
 intents = discord.Intents.default()
 intents.message_content = True
@@ -119,5 +122,8 @@ async def set_ems_room(interaction: discord.Interaction, room: discord.TextChann
     save_config(config)
     await interaction.response.send_message(f"✅ تم حفظ روم تقارير الإسعاف: {room.mention}", ephemeral=True)
 
-# ✅ تشغيل البوت باستخدام متغير بيئة (مناسب لـ Render)
+# تشغيل keep_alive لخادم Flask
+keep_alive()
+
+# تشغيل البوت باستخدام متغير البيئة TOKEN
 bot.run(os.getenv("TOKEN"))
